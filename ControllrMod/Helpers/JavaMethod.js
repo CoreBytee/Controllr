@@ -1,4 +1,4 @@
 module.exports = function(Fn, Bind) {
     Fn = Fn.bind(Bind)
-    JavaWrapper.methodToJava(Fn)
+    return JavaWrapper.methodToJava(Fn)
 }
