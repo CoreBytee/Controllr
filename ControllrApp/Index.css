@@ -1,0 +1,43 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body .title {
+  font-weight: bolder;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+body input {
+  border: none;
+  border-radius: 30px;
+  padding: 10px;
+  background-color: var(--color-textbox);
+  text-align: center;
+  margin-bottom: 15px;
+}
+body input::placeholder,
+body input {
+  color: var(--color-text);
+  font-weight: bolder;
+  font-size: 14px;
+}
+body input::-webkit-outer-spin-button,
+body input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+body button {
+  background-color: var(--color-button);
+  border: none;
+  color: var(--color-text);
+  padding: 10px;
+  font-weight: bolder;
+  font-size: 18px;
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+body button:hover {
+  background-color: var(--color-button-secondary);
+}
