@@ -1,0 +1,7 @@
+body {
+  margin: 0px;
+  height: 100vh;
+  background-color: var(--color-background);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+}
