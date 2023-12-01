@@ -21,10 +21,16 @@ ControllrMod.Websocket.On(
                     ReceivedAt: Date.now()
                 }
             )
+            ControllrMod.LastPingTime = Date.now()
         }
     }
 )
 
-Event("Tick", () => { })
-
-print("Controllr is running with code " + ControllrMod.ConnectionCode)
+Event(
+    "Tick",
+    () => {
+        if (ControllrMod.LastPingTime + 10000 < Date.now()) {
+            Chat.actionbar("Controllr is running with code " + ControllrMod.ConnectionCode)
+        }
+    }
+)
