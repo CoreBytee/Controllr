@@ -9,7 +9,6 @@ class Websocket {
         this.RawWebsocket.onConnect = JavaMethod( (_, Headers) => { this.Emit("Connect", Headers) }, this )
         this.RawWebsocket.onTextMessage = JavaMethod( (_, Data) => { this.Emit("TextMessage", Data) }, this )
         this.RawWebsocket.onDisconnect = JavaMethod( (_) => { this.Emit("Disconnect") } )
-        this.RawWebsocket.onFrame = JavaMethod( (_, Data) => { this.Emit("Frame", Data) }, this )
 
         this.On(
             "TextMessage",
@@ -34,7 +33,6 @@ class Websocket {
     }
 
     Emit(Event, Data) {
-        Chat.log(Event, Data)
         if (this.Listeners[Event] != undefined) {
             this.Listeners[Event].forEach((Callback) => {
                 Callback(Data)
