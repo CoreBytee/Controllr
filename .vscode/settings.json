@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.root": "/ControllrApp"
+    "liveServer.settings.root": "/ControllrApp",
+    "liveServer.settings.port": 5501
 }
