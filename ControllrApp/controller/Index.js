@@ -9,3 +9,37 @@ WebSocketInstance.On(
         }
     }
 )
+
+const MovementStick = document.getElementById("movementstick")
+
+MovementStick.addEventListener(
+    "change",
+    function() {
+        WebSocketInstance.SendData(
+            {
+                Type: "Movement",
+                X: Number(MovementStick.getAttribute("data-x")),
+                Y: Number(MovementStick.getAttribute("data-y")),
+                Angle: Number(MovementStick.getAttribute("data-angle")),
+                Force: Number(MovementStick.getAttribute("data-force"))
+            }
+        )
+    }
+)
+
+const ViewStick = document.getElementById("viewstick")
+
+ViewStick.addEventListener(
+    "change",
+    function() {
+        WebSocketInstance.SendData(
+            {
+                Type: "View",
+                X: Number(ViewStick.getAttribute("data-x")),
+                Y: Number(ViewStick.getAttribute("data-y")),
+                Angle: Number(ViewStick.getAttribute("data-angle")),
+                Force: Number(ViewStick.getAttribute("data-force"))
+            }
+        )
+    }
+)
