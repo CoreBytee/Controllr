@@ -1,0 +1,25 @@
+.joystick {
+    aspect-ratio: 1/1;
+    height: 100%;
+    background-color: var(--color-background-secondary);
+    position: relative;
+
+    .stick {
+        background-color: var(--color-button);
+        width: 75px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        transform-origin: center;
+        position: absolute;
+        top: calc(50% - 75px/2);
+        left: calc(50% - 75px/2);
+
+        &.transition {
+            transition: transform 0.1s;
+        }
+
+        &:active {
+            background-color: var(--color-button-secondary);
+        }
+    }
+}
