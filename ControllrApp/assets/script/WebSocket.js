@@ -50,6 +50,7 @@ class WebSocketClass {
     }
 
     SendText(Text) {
+        if (this.RawWebsocket.readyState != 1) { return }
         this.RawWebsocket.send(Text)
     }
 
