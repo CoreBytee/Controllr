@@ -65,7 +65,7 @@ function Joystick(Element) {
     Element.addEventListener(
         "touchmove",
         (TouchEvent) => {
-            const TouchMovement = TouchEvent.touches[0]
+            const TouchMovement = Array.from(TouchEvent.touches).find((Touch) => Touch.target == Element || Touch.target == StickElement)
             StickElement.classList.remove("transition")
             SetStickPosition(
                 (TouchMovement.clientX - JoystickLeft) - JoystickCenterX,
