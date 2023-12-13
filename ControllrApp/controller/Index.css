@@ -1,6 +1,9 @@
+html,
+body {
+  overflow: hidden;
+}
 body {
   padding: 10px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 10px;
