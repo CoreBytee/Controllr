@@ -1,5 +1,8 @@
 const RandomNumber = require("./Helpers/RandomNumber.js")
 const Event = require("./Helpers/Event.js")
+function Clamp(Value, Min, Max) {
+    return Math.min(Math.max(Value, Min), Max)
+}
 
 globalThis.print = (...Args) => { Chat.log(JSON.stringify(Args)) }
 
