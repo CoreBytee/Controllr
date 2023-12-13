@@ -43,9 +43,11 @@ body {
   fill: var(--color-button-secondary);
   transition: fill 0.2s ease-in-out;
 }
-.buttons button.active {
+.buttons button.active,
+.buttons button:active {
   background-color: var(--color-button-secondary);
 }
-.buttons button.active svg {
+.buttons button.active svg,
+.buttons button:active svg {
   fill: var(--color-button);
 }
