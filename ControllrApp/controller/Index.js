@@ -43,3 +43,48 @@ ViewStick.addEventListener(
         )
     }
 )
+
+Array.from(document.querySelectorAll(
+    ".buttons button"
+)).forEach(
+    (ButtonElement) => {
+        console.log(ButtonElement)
+
+        const IsToggle = ButtonElement.hasAttribute("toggle")
+        const EventName = ButtonElement.getAttribute("eventname")
+        console.log(IsToggle, EventName)
+
+        ButtonElement.addEventListener(
+            "touchstart",
+            () => {
+                const State = ButtonElement.classList.contains("active")
+                if (IsToggle) {
+                    ButtonElement.classList.toggle("active")
+                }
+
+                WebSocketInstance.SendData(
+                    {
+                        Type: EventName,
+                        State: !State
+                    }
+                )
+            }
+        )
+
+        ButtonElement.addEventListener(
+            "touchend",
+            () => {
+                if (!IsToggle) {
+                    ButtonElement.classList.remove("active")
+
+                    WebSocketInstance.SendData(
+                        {
+                            Type: EventName,
+                            State: false
+                        }
+                    )
+                }
+            }
+        )
+    }
+)
