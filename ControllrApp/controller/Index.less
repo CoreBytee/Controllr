@@ -2,6 +2,52 @@ body {
     padding: 10px;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.joysticks {
+    display: flex;
     flex-direction: row;
     gap: 10px;
+    // aspect-ratio: 1/2;
+    height: 80%;
+
+    #viewstick {
+        margin-left: auto;
+    }
+}
+
+.buttons {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    button {
+        flex-grow: 1;
+        background-color: var(--color-button);
+        border: none;
+        transition: background-color 0.2s ease-in-out;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1%;
+
+        svg {
+            height: 100%;
+            width: 100%;
+            aspect-ratio: 1/1;
+            fill: var(--color-button-secondary);
+            transition: fill 0.2s ease-in-out;
+        }
+
+        &.active {
+            background-color: var(--color-button-secondary);
+            svg {
+                fill: var(--color-button);
+            }
+        }
+    }
 }
