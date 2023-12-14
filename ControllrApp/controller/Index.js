@@ -64,11 +64,8 @@ Array.from(document.querySelectorAll(
     ".buttons button"
 )).forEach(
     (ButtonElement) => {
-        console.log(ButtonElement)
-
         const IsToggle = ButtonElement.hasAttribute("toggle")
         const EventName = ButtonElement.getAttribute("eventname")
-        console.log(IsToggle, EventName)
 
         ButtonElement.addEventListener(
             "touchstart",
