@@ -48,11 +48,26 @@ function Joystick(Element) {
             Angle = Angle % 360
         }
 
+        let Changed = false
+
+        const CurrentPercentX = Number(Element.getAttribute("data-x"))
+        const CurrentPercentY = Number(Element.getAttribute("data-y"))
+        const CurrentAngle = Number(Element.getAttribute("data-angle"))
+        const CurrentForce = Number(Element.getAttribute("data-force"))
+
+        if (CurrentPercentX != PercentX) { Changed = true }
+        if (CurrentPercentY != PercentY) { Changed = true }
+        if (CurrentAngle != Angle) { Changed = true }
+        if (CurrentForce != Force) { Changed = true }
+
         Element.setAttribute("data-x", PercentX)
         Element.setAttribute("data-y", PercentY)
         Element.setAttribute("data-angle", Angle)
         Element.setAttribute("data-force", Force)
-        Element.dispatchEvent(new Event("change"))
+
+        if (Changed) {
+            Element.dispatchEvent(new Event("change"))
+        }
     }
 
     Element.addEventListener(
