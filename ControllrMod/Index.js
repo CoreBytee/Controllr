@@ -34,9 +34,9 @@ ControllrMod.Websocket.On(
             )
             ControllrMod.LastPingTime = Date.now()
         } else if (Data.Type == "Movement") {
-            ControllrMod.MovementState = Data
+            ControllrMod.MovementState = Data.Data
         } else if (Data.Type == "View") {
-            ControllrMod.ViewState = Data
+            ControllrMod.ViewState = Data.Data
         } else if (Data.Type == "Punch") {
             if (Data.State == false) { return }
             const InteractionManager = Player.interactions()
