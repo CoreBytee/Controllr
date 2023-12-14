@@ -8,10 +8,12 @@ class WebSocketClass {
         this.RawWebsocket.onclose = (Event) => { this.Emit("Disconnect", Event) }
 
         this.SentDataLength = 0
+        this.ReceivedDataLength = 0
 
         this.On(
             "TextMessage",
             (Data) => {
+                this.ReceivedDataLength += Data.length
                 try {
                     Data = JSON.parse(Data)
                 } catch (e) {
@@ -36,7 +38,7 @@ class WebSocketClass {
                 if (Data.Type != "Pong") { return }
                 const Ping = Date.now() - Data.SentAt
                 this.Ping = Ping
-                this.Emit("DebugData", {Ping: Ping, SentDataLength: this.SentDataLength})
+                this.Emit("DebugData", {Ping: Ping, SentDataLength: this.SentDataLength, ReceivedDataLength: this.ReceivedDataLength})
             }
         )
     }
@@ -65,7 +67,7 @@ class WebSocketClass {
         if (this.RawWebsocket.readyState != 1) { return }
         this.SentDataLength += Text.length
         this.RawWebsocket.send(Text)
-        this.Emit("DebugData", {Ping: this.Ping, SentDataLength: this.SentDataLength})
+        this.Emit("DebugData", {Ping: this.Ping, SentDataLength: this.SentDataLength, ReceivedDataLength: this.ReceivedDataLength})
     }
 
     SendData(Data) {

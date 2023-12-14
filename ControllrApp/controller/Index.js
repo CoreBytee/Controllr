@@ -28,8 +28,7 @@ const WebSocketInstance = new WebSocketClass(QueryString.code)
 WebSocketInstance.On(
     "DebugData",
     (Data) => {
-        console.log(Data)
-        document.querySelector(".debugdata").innerText = `${Data.Ping || -1}ms, ${ShortenBytes(Data.SentDataLength)} sent`
+        document.querySelector(".debugdata").innerText = `${Data.Ping || -1}ms, ${ShortenBytes(Data.SentDataLength)} sent ${ShortenBytes(Data.ReceivedDataLength)} received`
     }
 )
 
