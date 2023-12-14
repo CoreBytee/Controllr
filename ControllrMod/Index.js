@@ -38,7 +38,9 @@ ControllrMod.Websocket.On(
         } else if (Data.Type == "View") {
             ControllrMod.ViewState = Data
         } else if (Data.Type == "Punch") {
-            print("Punch")
+            if (Data.State == false) { return }
+            const InteractionManager = Player.interactions()
+            InteractionManager.attack()
         } else if (Data.Type == "Crouch") {
             ControllrMod.CrouchState = Data.State
         } else if (Data.Type == "Jump") {
@@ -46,7 +48,8 @@ ControllrMod.Websocket.On(
         } else if (Data.Type == "Sprint") {
             ControllrMod.SprintState = Data.State
         } else if (Data.Type == "Interact") {
-            print("Interact")
+            const InteractionManager = Player.interactions()
+            InteractionManager.holdInteract(Data.State)
         }
     }
 )
