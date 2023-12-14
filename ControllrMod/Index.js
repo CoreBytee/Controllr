@@ -29,7 +29,8 @@ ControllrMod.Websocket.On(
                 {
                     Type: "Pong",
                     SentAt: Data.SentAt,
-                    ReceivedAt: Date.now()
+                    ReceivedAt: Date.now(),
+                    ClientId: Data.ClientId
                 }
             )
             ControllrMod.LastPingTime = Date.now()

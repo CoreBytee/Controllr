@@ -1,6 +1,16 @@
+function RandomString(Length) {
+    let Result = ""
+    const Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    for (let i = 0; i < Length; i++) {
+        Result += Characters.charAt(Math.floor(Math.random() * Characters.length))
+    }
+    return Result
+}
+
 class WebSocketClass {
     constructor(ConnectionCode) {
         this.Listeners = {}
+        this.ClientId = RandomString(16)
 
         this.RawWebsocket = new WebSocket(`wss://ccws.skystuff.cc/connect/Controllr${ConnectionCode}/Controllr`)
         this.RawWebsocket.onopen = (Event) => { this.Emit("Connect", Event) }
@@ -9,6 +19,7 @@ class WebSocketClass {
 
         this.SentDataLength = 0
         this.ReceivedDataLength = 0
+        this.Sequence = 0
 
         this.On(
             "TextMessage",
@@ -19,6 +30,7 @@ class WebSocketClass {
                 } catch (e) {
                     return
                 }
+                if (Data.ClientId && Data.ClientId != this.ClientId) { console.log("Ignoring message"); return }
                 this.Emit("Data", Data)
             }
         )
@@ -71,6 +83,9 @@ class WebSocketClass {
     }
 
     SendData(Data) {
+        Data.Sequence = this.Sequence
+        this.Sequence += 1
+        Data.ClientId = this.ClientId
         this.SendText(
             JSON.stringify(Data)
         )
