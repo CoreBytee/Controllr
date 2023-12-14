@@ -66,6 +66,8 @@ FrameEvent(
 
         if (ControllrMod.LastPingTime + 5000 < Date.now()) {
             Chat.actionbar("Controllr is running with code " + ControllrMod.ConnectionCode)
+        } else {
+            Chat.actionbar("")
         }
 
         let MovementState = ControllrMod.MovementState
