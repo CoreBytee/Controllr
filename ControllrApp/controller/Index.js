@@ -1,12 +1,35 @@
 const QueryString = Object.fromEntries((new URLSearchParams(window.location.search)).entries())
 
+function ShortenBytes(Bytes) {
+    const Units = ["B", "KB", "MB", "GB", "TB"]
+    let UnitIndex = 0
+    while (Bytes > 1024) {
+        Bytes /= 1024
+        UnitIndex++
+    }
+    return `${Bytes.toFixed(2)} ${Units[UnitIndex]}`
+}
+
+function Round(Value, Decilmals) {
+    const Multiplier = Math.pow(10, Decilmals)
+    return Math.round(Value * Multiplier) / Multiplier
+}
+
+function GetJoystickData(JoystickElement) {
+    return {
+        X: Round(Number(JoystickElement.getAttribute("data-x")), 3),
+        Y: Round(Number(JoystickElement.getAttribute("data-y")), 3),
+        Angle: Round(Number(JoystickElement.getAttribute("data-angle")), 3),
+        Force: Round(Number(JoystickElement.getAttribute("data-force")), 3)
+    }
+}
+
 const WebSocketInstance = new WebSocketClass(QueryString.code)
 WebSocketInstance.On(
-    "Data",
-    function(Data) {
-        if (Data.Type == "Pong") {
-            console.log("Ping: " + (Date.now() - Data.SentAt) + "ms")
-        }
+    "DebugData",
+    (Data) => {
+        console.log(Data)
+        document.querySelector(".debugdata").innerText = `${Data.Ping || -1}ms, ${ShortenBytes(Data.SentDataLength)} sent`
     }
 )
 
@@ -18,10 +41,7 @@ MovementStick.addEventListener(
         WebSocketInstance.SendData(
             {
                 Type: "Movement",
-                X: Number(MovementStick.getAttribute("data-x")),
-                Y: Number(MovementStick.getAttribute("data-y")),
-                Angle: Number(MovementStick.getAttribute("data-angle")),
-                Force: Number(MovementStick.getAttribute("data-force"))
+                Data: GetJoystickData(MovementStick)
             }
         )
     }
@@ -35,10 +55,7 @@ ViewStick.addEventListener(
         WebSocketInstance.SendData(
             {
                 Type: "View",
-                X: Number(ViewStick.getAttribute("data-x")),
-                Y: Number(ViewStick.getAttribute("data-y")),
-                Angle: Number(ViewStick.getAttribute("data-angle")),
-                Force: Number(ViewStick.getAttribute("data-force"))
+                Data: GetJoystickData(ViewStick)
             }
         )
     }
