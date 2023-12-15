@@ -11,7 +11,7 @@ function Clamp(Value, Min, Max) {
 globalThis.print = (...Args) => { Chat.log(JSON.stringify(Args)) }
 
 globalThis.ControllrMod = {}
-ControllrMod.ConnectionCode = 111111 //RandomNumber(6)
+ControllrMod.ConnectionCode = RandomNumber(6)
 ControllrMod.Websocket = new (require("./Classes/Websocket.js"))(ControllrMod.ConnectionCode)
 ControllrMod.Websocket.Connect()
 ControllrMod.Websocket.SendData("Hello")
