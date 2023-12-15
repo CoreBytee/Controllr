@@ -10,14 +10,26 @@ class Websocket {
         this.RawWebsocket.onTextMessage = JavaMethod( async (_, Data) => { this.Emit("TextMessage", Data) }, this )
         this.RawWebsocket.onDisconnect = JavaMethod( (_) => { this.Emit("Disconnect") } )
 
+        this.ClientSequences = {}
+
         this.On(
             "TextMessage",
-            (Data) => {
+            async (Data) => {
                 try {
                     Data = JSON.parse(Data)
                 } catch (e) {
+                    print("JSON error")
                     return
                 }
+                print(Data.Sequence, Data.ClientId)
+                if (Data.ClientId && Data.Sequence) {
+                    if (!this.ClientSequences[Data.ClientId]) { this.ClientSequences[Data.ClientId] = Data.Sequence - 1 }
+                    if (Data.Sequence != this.ClientSequences[Data.ClientId] + 1) {
+                        print("Sequence error")
+                    }
+                    this.ClientSequences[Data.ClientId] = Data.Sequence
+                }
+                this.LastSequence = Data.Sequence
                 this.Emit("Data", Data)
             }
         )
@@ -32,9 +44,9 @@ class Websocket {
         return Callback
     }
 
-    Emit(Event, Data) {
+    async Emit(Event, Data) {
         if (this.Listeners[Event] != undefined) {
-            this.Listeners[Event].forEach((Callback) => {
+            this.Listeners[Event].forEach(async (Callback) => {
                 Callback(Data)
             })
         }
