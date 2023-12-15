@@ -16,6 +16,11 @@ function GetDirection(Number) {
     }
 }
 
+function Round(Value, Decilmals) {
+    const Multiplier = Math.pow(10, Decilmals)
+    return Math.round(Value * Multiplier) / Multiplier
+}
+
 function Joystick(Element) {
     const JoystickWidth = Element.offsetWidth
     const JoystickHeight = Element.offsetHeight
@@ -23,6 +28,7 @@ function Joystick(Element) {
     const JoystickTop = Element.offsetTop
     const JoystickCenterX = JoystickWidth / 2
     const JoystickCenterY = JoystickHeight / 2
+    const Precision = 1
 
     // console.log(JoystickWidth, JoystickHeight, JoystickLeft, JoystickTop, JoystickCenterX, JoystickCenterY)
 
@@ -38,9 +44,9 @@ function Joystick(Element) {
         const DirectionX = GetDirection(TransformX)
         const DirectionY = GetDirection(TransformY)
 
-        const PercentX = TransformX / JoystickCenterX
-        const PercentY = TransformY / JoystickCenterY
-        const Force = Math.min(Math.sqrt(Math.pow(PercentX, 2) + Math.pow(PercentY, 2)), 1)
+        let PercentX = TransformX / JoystickCenterX
+        let PercentY = TransformY / JoystickCenterY
+        let Force = Math.min(Math.sqrt(Math.pow(PercentX, 2) + Math.pow(PercentY, 2)), 1)
         let Angle = Degrees(Math.atan2(PercentY, PercentX)) + 90
         if (Angle < 0) {
             Angle = 360 + Angle
@@ -50,6 +56,11 @@ function Joystick(Element) {
 
         let Changed = false
 
+        PercentX = Round(PercentX, Precision)
+        PercentY = Round(PercentY, Precision)
+        Force = Round(Force, Precision)
+        Angle = Round(Angle, Precision)
+
         const CurrentPercentX = Number(Element.getAttribute("data-x"))
         const CurrentPercentY = Number(Element.getAttribute("data-y"))
         const CurrentAngle = Number(Element.getAttribute("data-angle"))
@@ -57,8 +68,8 @@ function Joystick(Element) {
 
         if (CurrentPercentX != PercentX) { Changed = true }
         if (CurrentPercentY != PercentY) { Changed = true }
-        if (CurrentAngle != Angle) { Changed = true }
-        if (CurrentForce != Force) { Changed = true }
+        // if (CurrentAngle != Angle) { Changed = true }
+        // if (CurrentForce != Force) { Changed = true }
 
         Element.setAttribute("data-x", PercentX)
         Element.setAttribute("data-y", PercentY)

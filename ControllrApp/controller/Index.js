@@ -10,17 +10,14 @@ function ShortenBytes(Bytes) {
     return `${Bytes.toFixed(2)} ${Units[UnitIndex]}`
 }
 
-function Round(Value, Decilmals) {
-    const Multiplier = Math.pow(10, Decilmals)
-    return Math.round(Value * Multiplier) / Multiplier
-}
+
 
 function GetJoystickData(JoystickElement) {
     return {
-        X: Round(Number(JoystickElement.getAttribute("data-x")), 3),
-        Y: Round(Number(JoystickElement.getAttribute("data-y")), 3),
-        Angle: Round(Number(JoystickElement.getAttribute("data-angle")), 3),
-        Force: Round(Number(JoystickElement.getAttribute("data-force")), 3)
+        X: Number(JoystickElement.getAttribute("data-x")),
+        Y: Number(JoystickElement.getAttribute("data-y")),
+        // Angle: Number(JoystickElement.getAttribute("data-angle")),
+        // Force: Number(JoystickElement.getAttribute("data-force"))
     }
 }
 
