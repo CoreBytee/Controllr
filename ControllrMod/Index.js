@@ -15,6 +15,7 @@ ControllrMod.ConnectionCode = RandomNumber(6)
 ControllrMod.Websocket = new (require("./Classes/Websocket.js"))(ControllrMod.ConnectionCode)
 ControllrMod.Websocket.Connect()
 ControllrMod.Websocket.SendData("Hello")
+ControllrMod.LastPingTime = Date.now()
 ControllrMod.PlayerOrientation = {X: 0, Y: 0}
 ControllrMod.CrouchState = false
 ControllrMod.JumpState = false
@@ -56,18 +57,21 @@ ControllrMod.Websocket.On(
 
 let LastFrameTime = Time.time()
 
+Event(
+    "Tick",
+    () => {
+        if (ControllrMod.LastPingTime + 5000 < Date.now()) {
+            Chat.title(ControllrMod.ConnectionCode, "Connect via controllr.corebyte.me", 0, 100, 0)
+        }
+    }
+)
+
 FrameEvent(
     () => {
 
         const Now = Time.time()
         const DeltaTime = (Now - LastFrameTime) / 1000
         LastFrameTime = Now
-
-        if (ControllrMod.LastPingTime + 5000 < Date.now()) {
-            Chat.actionbar("Controllr is running with code " + ControllrMod.ConnectionCode)
-        } else {
-            Chat.actionbar("")
-        }
 
         let MovementState = ControllrMod.MovementState
         if (!MovementState) {
