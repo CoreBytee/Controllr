@@ -1,0 +1,24 @@
+{
+    "Id": "ControllrSocket",
+    "Name": "ControllrSocket",
+    "Description": "ControllrSocket",
+    "Version": "1.0.0",
+    "Authors": {
+        "Developers": [
+            "CoreByte"
+        ],
+        "Contributors": []
+    },
+    "Contact": {
+        "Website": "",
+        "Source": "",
+        "Socials": {}
+    },
+    "Dependencies": [
+        "npm+ws@8.15.1"
+    ],
+    "Preload": [],
+    "Entrypoints": {
+        "Main": "me.corebyte.ControllrSocket"
+    }
+}
