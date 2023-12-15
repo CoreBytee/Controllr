@@ -12,7 +12,7 @@ class WebSocketClass {
         this.Listeners = {}
         this.ClientId = RandomString(16)
 
-        this.RawWebsocket = new WebSocket(`wss://ccws.skystuff.cc/connect/Controllr${ConnectionCode}/Controllr`)
+        this.RawWebsocket = new WebSocket(`wss://ws.controllr.corebyte.me?Controllr${ConnectionCode}`)
         this.RawWebsocket.onopen = (Event) => { this.Emit("Connect", Event) }
         this.RawWebsocket.onmessage = (Event) => { this.Emit("TextMessage", Event.data) }
         this.RawWebsocket.onclose = (Event) => { this.Emit("Disconnect", Event) }

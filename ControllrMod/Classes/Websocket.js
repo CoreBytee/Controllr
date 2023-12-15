@@ -5,9 +5,9 @@ class Websocket {
     constructor(ConnectionCode) {
         this.Listeners = {}
 
-        this.RawWebsocket = Request.createWS(`wss://ccws.skystuff.cc/connect/Controllr${ConnectionCode}/Controllr`)
+        this.RawWebsocket = Request.createWS(`wss://ws.controllr.corebyte.me?Controllr${ConnectionCode}`)
         this.RawWebsocket.onConnect = JavaMethod( (_, Headers) => { this.Emit("Connect", Headers) }, this )
-        this.RawWebsocket.onTextMessage = JavaMethod( (_, Data) => { this.Emit("TextMessage", Data) }, this )
+        this.RawWebsocket.onTextMessage = JavaMethod( async (_, Data) => { this.Emit("TextMessage", Data) }, this )
         this.RawWebsocket.onDisconnect = JavaMethod( (_) => { this.Emit("Disconnect") } )
 
         this.On(
