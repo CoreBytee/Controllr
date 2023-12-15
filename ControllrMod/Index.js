@@ -23,7 +23,6 @@ ControllrMod.SprintState = false
 ControllrMod.Websocket.On(
     "Data",
     (Data) => {
-        // print(Data)
         if (Data.Type == "Ping") {
             ControllrMod.Websocket.SendData(
                 {
